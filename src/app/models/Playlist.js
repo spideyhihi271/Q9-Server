@@ -5,12 +5,17 @@ const playlistSchema = new mongoose.Schema(
     {
         name: { type: String, require: true },
         owner: { type: String, require: true },
+        thumb: { type: String },
         songs: { type: [String], require: true, default: [] },
+        artists: { type: [String], require: true, default: [] },
+        genres: { type: [String], require: true, default: [] },
         description: { type: String, require: true },
         private: { type: Boolean, require: true, default: false },
-        duration: { type: Number, require: true },
+        duration: { type: Number, require: true, default: 0 },
         views: { type: Number, require: true, default: 0 },
-        isSingle: { type: Boolean, require: true, default: false },
+        type: { type: Number, require: true, default: 0 },
+        createdByAdmin: { type: Boolean, require: true, default: false },
+        deleted: { type: Boolean, require: true, default: false },
     },
     { timestamps: true },
 );
@@ -21,9 +26,10 @@ const validate = (playlist) => {
         name: Joi.string().min(1).required(),
         owner: Joi.string().required(),
         songs: Joi.array(),
-        description: Joi.string().min(0).max(500),
-        duration: Joi.number().required(),
-        isSingle: Joi.boolean(),
+        description: Joi.string().min(0).max(500).required(),
+        duration: Joi.number(),
+        type: Joi.number().min(0).max(4),
+        createdByAdmin: Joi.boolean(),
     });
     return Schema.validate(playlist);
 };

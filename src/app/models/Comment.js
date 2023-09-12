@@ -9,6 +9,7 @@ const commentSchema = new mongoose.Schema(
         likes: { type: [String], require: true, default: [] },
         dislike: { type: [String], require: true, default: [] },
         reply: { type: String, require: true },
+        deleted: { type: Boolean, require: true, default: false },
     },
     { timestamps: true },
 );
@@ -19,8 +20,6 @@ const validate = (comment) => {
         owner: Joi.string().required(),
         songId: Joi.string().required(),
         content: Joi.string().required(),
-        likes: Joi.array(),
-        dislike: Joi.array(),
         reply: Joi.string(),
     });
     return Schema.validate(comment);

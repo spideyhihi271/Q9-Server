@@ -1,17 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcrypt');
+
+const AuthController = require('../app/controllers/AuthController');
 
 // AUTH /auth/signin
-router.post('/signin', (req, res) => {
-    res.status(200).send({ message: 'Signing in please wait...' });
-});
+router.post('/signup', AuthController.signUp);
 
 // AUTH /auth/signup
-router.post('/signup', (req, res) => {
-    res.status(200).send({ message: 'Signing in please wait...' });
-});
-
+router.post('/signin', AuthController.signIn);
 
 // Export
 module.exports = router;

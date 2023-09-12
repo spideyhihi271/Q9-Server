@@ -4,6 +4,7 @@ const Joi = require('joi');
 const categorySchema = new mongoose.Schema(
     {
         name: { type: String, require: true },
+        deleted: { type: Boolean, require: true, default: false },
     },
     { timestamps: true },
 );

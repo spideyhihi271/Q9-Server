@@ -9,10 +9,15 @@ const songSchema = new mongoose.Schema(
         song: { type: String, require: true },
         thumb: { type: String, require: true },
         duration: { type: Number, require: true },
-        lyrics: { type: String, require: true, default: '' },
+        lyrics: {
+            type: String,
+            require: true,
+            default: 'Chưa cập nhật lời nhạc',
+        },
         views: { type: Number, require: true, default: 0 },
         lastedRank: { type: Number, require: true, default: 0 },
         private: { type: Boolean, require: true, default: false },
+        deleted: { type: Boolean, require: true, default: false },
     },
     { timestamps: true },
 );
@@ -22,7 +27,7 @@ const validate = (song) => {
     const Schema = Joi.object({
         name: Joi.string().min(1).required(),
         artist: Joi.array().required(),
-        category: Joi.string.required(),
+        category: Joi.string().required(),
         song: Joi.string().required(),
         thumb: Joi.string().required(),
         duration: Joi.number().required(),
