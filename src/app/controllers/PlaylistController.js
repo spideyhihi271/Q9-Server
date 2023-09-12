@@ -62,7 +62,10 @@ class PlaylistController {
                 (item) => item._id != playlist._id,
             );
             watcher.historyPlaylist.push(playlist._id);
-            let updateHistory = await User.findByIdAndUpdate(watcher._id, watcher);
+            let updateHistory = await User.findByIdAndUpdate(
+                watcher._id,
+                watcher,
+            );
         }
 
         playlist = formatData.forPlaylist(playlist, user, artists, songs);

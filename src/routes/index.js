@@ -4,6 +4,7 @@ const categoryRouter = require('./category');
 const artistRouter = require('./artist');
 const commentRouter = require('./comment');
 const playlistRouter = require('./playlist');
+const userRouter = require('./user');
 
 function route(app) {
     app.use('/api/auth', authRouter);
@@ -12,6 +13,7 @@ function route(app) {
     app.use('/api/category', categoryRouter);
     app.use('/api/artist', artistRouter);
     app.use('/api/comment', commentRouter);
+    app.use('/api/user', userRouter);
 }
 
 module.exports = route;

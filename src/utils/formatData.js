@@ -81,7 +81,7 @@ class FormatData {
         });
         return playlist;
     }
-    forMutiplePlaylist(playlists, artists) {
+    forMutiplePlaylist(playlists, artists, users) {
         playlists = tranform.forArray(playlists);
         artists = tranform.forArray(artists);
 

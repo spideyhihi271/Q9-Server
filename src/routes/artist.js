@@ -3,7 +3,7 @@ const router = express.Router();
 const AuthMiddleWare = require('../app/middlewares/auth');
 const ArtistController = require('../app/controllers/ArtistController');
 
-// Post new Category
+// Post new Artist
 router.post(
     '/',
     AuthMiddleWare.verifyToken,
@@ -11,10 +11,13 @@ router.post(
     ArtistController.createNewArtist,
 );
 
-// Get All Category
+// Get All Artist
 router.get('/', ArtistController.getAllArtist);
 
-// Edit Category
+// Get All Artist
+router.get('/:id', ArtistController.getArtistById);
+
+// Edit Artist
 router.put(
     '/edit/:id',
     [AuthMiddleWare.verifyToken, AuthMiddleWare.isAdmin],

@@ -24,6 +24,12 @@ class ArtistController {
         return res.status(200).send({ data });
     }
 
+    // Get  Artist By Id
+    async getArtistById(req, res) {
+        let data = await Artist.findById(req.params.id);
+        return res.status(200).send({ data });
+    }
+
     // Edit Artist by ID
     async editArtistById(req, res) {
         let target = await Artist.findById(req.params.id);
@@ -39,7 +45,7 @@ class ArtistController {
     async deletedArtistById(req, res) {
         let target = await Artist.findById(req.params.id);
         target.deleted = true;
-        
+
         let newData = await Artist.findByIdAndUpdate(req.params.id, target);
 
         return res

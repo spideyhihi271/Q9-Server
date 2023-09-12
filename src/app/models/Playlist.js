@@ -29,6 +29,7 @@ const validate = (playlist) => {
         description: Joi.string().min(0).max(500).required(),
         duration: Joi.number(),
         type: Joi.number().min(0).max(4),
+        thumb: Joi.string(),
         createdByAdmin: Joi.boolean(),
     });
     return Schema.validate(playlist);

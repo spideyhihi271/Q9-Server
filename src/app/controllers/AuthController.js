@@ -2,6 +2,7 @@ const { User, validate } = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const salt = bcrypt.genSaltSync(10);
+const tranform = require('../../utils/tranformMongoes');
 
 class AuthController {
     async signUp(req, res) {
@@ -26,13 +27,15 @@ class AuthController {
         return res.status(200).send({ message: 'Your account was created!' });
     }
     async signIn(req, res) {
-        const user = await User.findOne({ email: req.body.email });
+        let user = await User.findOne({ email: req.body.email });
 
         // Check have account
         if (!user)
             return res
-                .status(403)
-                .send({ message: 'Your email does not exist' });
+                .status(400)
+                .send({
+                    message: 'Wrong email or password, please check again',
+                });
 
         const isValidPassword = await bcrypt.compare(
             req.body.password,
@@ -48,8 +51,16 @@ class AuthController {
         // Successful
         const token = user.generateAuthToken();
 
+        // Return data
+        user = tranform.forObject(user);
+        user = {
+            ...user,
+            password: undefined,
+            token: token,
+        };
+
         return res.status(200).send({
-            data: token,
+            data: user,
             message: 'Sign in successful',
         });
     }

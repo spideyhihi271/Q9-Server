@@ -56,6 +56,7 @@ class SongController {
         let songs = await Song.find({ _id: req.params.id, deleted: false });
         let artists = await Artist.find({});
         let user = await User.findById(req.user?._id);
+
         // +1 view
         let song = songs[0];
         song.views += 1;
@@ -64,7 +65,7 @@ class SongController {
         // +1 history
         if (user) {
             user.historySongs = user.historySongs.filter(
-                (item) => item._id != song._id,
+                (item) => item != song._id,
             );
             user.historySongs.push(song._id);
             let updateHistory = await User.findByIdAndUpdate(user._id, user);
