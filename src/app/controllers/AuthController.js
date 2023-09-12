@@ -17,7 +17,7 @@ class AuthController {
             return res.status(403).send({ message: 'Your email was exists' });
 
         // Create new user
-        const salt = await bcrypt.genSalt(Number(process.env.SALT));
+        const salt = await bcrypt.genSalt(10);
         const hashPassword = await bcrypt.hash(req.body.password, salt);
         const newUser = await new User({
             ...req.body,
