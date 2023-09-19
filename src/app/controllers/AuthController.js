@@ -1,5 +1,5 @@
 const { User, validate } = require('../models/User');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const salt = bcrypt.genSaltSync(10);
 const tranform = require('../../utils/tranformMongoes');
