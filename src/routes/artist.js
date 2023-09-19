@@ -17,6 +17,13 @@ router.get('/', ArtistController.getAllArtist);
 // Get All Artist
 router.get('/:id', ArtistController.getArtistById);
 
+// Add to Favorite
+router.put(
+    '/addToFavorite/:id',
+    [AuthMiddleWare.verifyToken],
+    ArtistController.addToFavoriteByID,
+);
+
 // Edit Artist
 router.put(
     '/edit/:id',

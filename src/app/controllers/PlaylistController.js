@@ -39,7 +39,6 @@ class PlaylistController {
 
     // Get Playlist by Id
     async getPlaylistById(req, res) {
-        let watcher = await User.findById(req.user?._id);
         let playlist = await Playlist.findById(req.params.id);
         let user = await User.findById(playlist.owner);
         let artists = await Artist.find({});
@@ -55,18 +54,6 @@ class PlaylistController {
 
         // +1 View
         playlist.views = playlist.views + 1;
-
-        // Save in history
-        if (watcher) {
-            watcher.historyPlaylist = watcher.historyPlaylist.filter(
-                (item) => item._id != playlist._id,
-            );
-            watcher.historyPlaylist.push(playlist._id);
-            let updateHistory = await User.findByIdAndUpdate(
-                watcher._id,
-                watcher,
-            );
-        }
 
         playlist = formatData.forPlaylist(playlist, user, artists, songs);
         return res.status(200).send({ data: playlist });
@@ -237,7 +224,7 @@ class PlaylistController {
         // Saving
         let updateData = await User.findByIdAndUpdate(user._id, user);
         return res.status(200).send({
-            message: 'This playlist was add to your favorite playlist',
+            data: 'This playlist was add to your favorite playlist',
         });
     }
 }

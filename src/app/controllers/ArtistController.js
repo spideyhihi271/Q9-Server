@@ -1,5 +1,6 @@
 const { Artist, validate } = require('../models/Artist');
 const filter = require('../../utils/filterData');
+const { User } = require('../models/User');
 
 class ArtistController {
     // Create new Artist
@@ -28,6 +29,21 @@ class ArtistController {
     async getArtistById(req, res) {
         let data = await Artist.findById(req.params.id);
         return res.status(200).send({ data });
+    }
+
+    // Put Artist to Favorite
+    async addToFavoriteByID(req, res) {
+        let data = await Artist.findById(req.params.id);
+        let user = await User.findById(req.user._id);
+
+        const isExist = user.follows.some((item) => item == data._id);
+        if (isExist)
+            user.follows = user.follows.filter((item) => item != data._id);
+        else user.follows.push(data._id);
+
+        // Saving
+        let update = await User.findByIdAndUpdate(user._id, user);
+        return res.status(200).send({ data: user.follows });
     }
 
     // Edit Artist by ID

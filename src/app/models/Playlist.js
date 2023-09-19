@@ -26,11 +26,12 @@ const validate = (playlist) => {
         name: Joi.string().min(1).required(),
         owner: Joi.string().required(),
         songs: Joi.array(),
-        description: Joi.string().min(0).max(500).required(),
+        description: Joi.string(),
         duration: Joi.number(),
         type: Joi.number().min(0).max(4),
         thumb: Joi.string(),
         createdByAdmin: Joi.boolean(),
+        private: Joi.boolean(),
     });
     return Schema.validate(playlist);
 };

@@ -102,7 +102,7 @@ class SongController {
         let updateUser = await User.findByIdAndUpdate(user._id, user);
 
         return res.status(200).send({
-            message: 'Like successful!',
+            data: 'Like successful!',
         });
     }
 
@@ -152,7 +152,7 @@ class SongController {
         // Saving
         let updateUser = await User.findByIdAndUpdate(user._id, user);
         return res.status(200).send({
-            message: 'Add to favorite successful!',
+            data: 'Add to favorite successful!',
         });
     }
 }

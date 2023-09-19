@@ -21,21 +21,20 @@ class AuthController {
         const hashPassword = await bcrypt.hash(req.body.password, salt);
         const newUser = await new User({
             ...req.body,
+            avatar: 'https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png',
             password: hashPassword,
         }).save();
 
-        return res.status(200).send({ message: 'Your account was created!' });
+        return res.status(200).send({ data: 'Your account was created!' });
     }
     async signIn(req, res) {
         let user = await User.findOne({ email: req.body.email });
 
         // Check have account
         if (!user)
-            return res
-                .status(400)
-                .send({
-                    message: 'Wrong email or password, please check again',
-                });
+            return res.status(400).send({
+                message: 'Wrong email or password, please check again',
+            });
 
         const isValidPassword = await bcrypt.compare(
             req.body.password,
